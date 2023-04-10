@@ -9,7 +9,6 @@ form.addEventListener('submit', clearLocaleStorage);
 function saveOnLocaleStorage (evt){
    data[evt.target.name] = evt.target.value;
    localStorage.setItem("DATA_KEY", JSON.stringify(data))
-   currentValueForm(evt)
 }
 
 function clearLocaleStorage (evt){
@@ -19,10 +18,13 @@ function clearLocaleStorage (evt){
     localStorage.removeItem("DATA_KEY")
 }
 
-function currentValueForm(evt){
-    const savedMessage = localStorage.getItem("DATA_KEY");
-    if(savedMessage){
-     return  evt.textContent = savedMessage;
-    }
+function currentValueForm(){
+    const savedMessageEmail = JSON.parse(localStorage.getItem("DATA_KEY")).email;
+     const savedMessageMessage = JSON.parse(localStorage.getItem("DATA_KEY")).message;
+     if(savedMessageEmail || savedMessageMessage){
+    form.email.value = savedMessageEmail;
+    form.message.value = savedMessageMessage;
+    return;
+} 
 }
-
+currentValueForm()
